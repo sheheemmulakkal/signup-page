@@ -5,22 +5,35 @@ const path = require('path')
 
 const app = express()
 
+// HANDLEBARS ENGINE CONFIGURATION
+// setting helper function to check if the value is equal
+const ifEqual = function(value1, value2, options) {
+    if (value1 === value2) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  };
 
-// Setting view engine (Express handlebars)
+// Creating hbs engine
 app.engine( 'hbs',
     expressHbs.engine({
         partialsDir : path.join( __dirname, 'views', 'partials' ), 
         layoutsDir : path.join( __dirname, 'views', 'layout'),
         defaultLayout : 'main-layout',
-        extname : 'hbs'
+        extname : 'hbs',
+        helpers : {
+            ifEqual : ifEqual
+        }
     }))
 
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
 
+
 // Setting public static folder
-app.set(express.static( path.join(__dirname, 'public')))
+app.use(express.static( path.join(__dirname, 'public')))
 
 
 // Using bodyParser

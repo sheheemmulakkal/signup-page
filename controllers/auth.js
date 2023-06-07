@@ -11,8 +11,20 @@ module.exports = {
     // POST login page
     doLogin : ( req, res ) => {
 
-        res.redirect( '/')
+        res.redirect( '/' )
 
+    },
+
+    //GET signup page
+    getSignup : ( req, res ) => {
+
+        res.render('auth/signup', {pageTitle : 'signup'})
+    },
+
+    //POST signup page 
+    doSignup : ( req, res ) => {
+
+        res. redirect( '/' )
     }
 
 }
