@@ -1,0 +1,38 @@
+
+
+<div class="table-div">
+
+<div class=" table-responsive py-5"> 
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each users}}
+    <tr>
+      <th scope="row">{{@key}}</th>
+      <td>{{this.name}}</td>
+      <td>{{this.email}}</td>
+      <td>
+        <a href="/admin/edit-user?id={{this._id}}" class="btn btn-primary">Edit</a>
+        <a href="/admin/delete-user/{{this._id}}" class="btn btn-danger" onclick="return confirm('Do you want to remove {{this.Name}} ?')">Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</div>
+
+<style>
+    .table-div {
+        text-align: center;
+    }
+    
+</style>

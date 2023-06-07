@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const expressHbs = require('express-handlebars')
 const path = require('path')
+const nocache = require('nocache')
+const session = require('express-session')
 
 const app = express()
 
@@ -39,6 +41,16 @@ app.use(express.static( path.join(__dirname, 'public')))
 
 // Using bodyParser
 app.use( bodyParser.urlencoded({ extended:false}) )
+
+// Using nocache
+app.use(nocache())
+
+//Using session
+app.use(session({
+    secret: 'key',
+    resave: false,
+    saveUninitialized: false
+}))
 
 
 // Requiring Routers

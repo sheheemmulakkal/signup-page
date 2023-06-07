@@ -11,4 +11,7 @@ router.get( '/signup', authController.getSignup )
 
 router.post( '/signup', authController.doSignup )
 
+router.get( '/logout', authController.doLogout )
+
+
 module.exports = router

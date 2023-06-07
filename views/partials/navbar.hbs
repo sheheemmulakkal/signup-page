@@ -1,1 +1,65 @@
-<h1 style="background-color: lightcoral;">this is nav baar</h1>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: salmon;">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold ps-5" href="/">MyShop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto ps-5 mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link">Link</a>
+        </li>
+      </ul>
+      <form class="d-flex pe-5" role="search">
+        {{#if user}}
+        <button class="btn btn-outline-light" ><a href="/logout">Log out</a></a></button>
+        {{/if}}
+        {{#if admin}}
+        <button class="btn btn-outline-light" ><a href="/admin/logout">Log out</a></a></button>
+        {{/if}}
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<style>
+    .navbar-nav .nav-link {
+  color: #fff;
+}
+.dropend .dropdown-toggle {
+  color: salmon;
+  margin-left: 1em;
+}
+.dropdown-item:hover {
+  background-color: lightsalmon;
+  color: #fff;
+}
+.dropdown .dropdown-menu {
+  display: none;
+}
+.dropdown:hover > .dropdown-menu,
+.dropend:hover > .dropdown-menu {
+  display: block;
+  margin-top: 0.125em;
+  margin-left: 0.125em;
+}
+@media screen and (min-width: 769px) {
+  .dropend:hover > .dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+  }
+  .dropend .dropdown-toggle {
+    margin-left: 0.5em;
+  }
+}
+
+</style>

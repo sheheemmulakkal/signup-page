@@ -1,0 +1,12 @@
+<div class="login-page">
+  <div class="form">
+    {{#each user}}
+    <form class="register-form" method="POST" action="/admin/edit-user">
+      <input type="hidden" name="id" value="{{this._id}}" />
+      <input type="text" name="name" value="{{this.name}}" placeholder="name"/>
+      <input type="email" name="email" value="{{this.email}}" placeholder="email address"/>
+      <button type="submit">Update</button>
+    </form>
+    {{/each}}
+  </div>
+</div>

@@ -6,57 +6,96 @@ module.exports = {
     // GET login page
     getLogin : ( req, res ) => {
 
-        res.render('auth/login', { pageTitle : 'login'})
+       if( req.session.loggedIn) {
+        res.redirect('/')
+       } else {
+        res.render('auth/login', { pageTitle : 'login'} )
+       }
         
     },
 
     // POST login page
-    doLogin : ( req, res ) => {
+    doLogin : async( req, res ) => {
 
-        res.redirect( '/' )
+
+        try {
+            
+            const user = await User.findOne( {email : req.body.email} )
+
+            if ( user ) {
+                const password =  bcrypt.compare( req.body.password, user.password )
+
+                if( password ) {
+
+                    req.session.user = user
+                    req.session.loggedIn = true
+
+                    res.redirect( '/' )
+                } else {
+                    res.render( 'auth/login', {pageTitle : 'login', errPswd : true} )
+                }
+
+            } else {
+                res.render( 'auth/login', {pageTitle : 'login', errUser : true} )
+            }
+
+        } catch (error) {
+            console.log( 'hiii'+error.message );
+        }
 
     },
 
     //GET signup page
+
     getSignup : ( req, res ) => {
+        if(req.session.loggedIn){
+            res.redirect('/')
+        } else {
+            res.render('auth/signup', {pageTitle : 'signup'} )
 
-
-        res.render('auth/signup', {pageTitle : 'signup'})
-
+        }
     },
 
     //POST signup page 
-    doSignup : ( req, res ) => {
+    doSignup : async( req, res ) => {
 
+        try {
 
-        User.findOne({email : req.body.email})
-        .then( userResult => {
+            const userData = await User.findOne( {email : req.body.email} )
 
-            if(userResult) {
-                return res.render( 'auth/signup', { userExist : true, pageTitle: 'signup'})
+            if ( userData ) {
+
+                return res.render('auth/signup', {userExist : true, pageTitle: 'signup'})
+            
             } else {
 
-                bcrypt.hash(req.body.password, 12)
-                .then( password => {
+                const password = await bcrypt.hash( req.body.password, 12 )
 
-                    const user = new User({
-                        name : req.body.name,
-                        password : password,
-                        email : req.body.email
-                    })
-                    
-                    return user.save()
-
+                const user = new User({
+                    name : req.body.name,
+                    password : password,
+                    email : req.body.email
                 })
-                .then( result => {
 
-                    console.log(result);
-                    res.redirect( '/' )
-                    
-                })
+                const result = await user.save()
+
+                req.session.user = user
+                req.session.loggedIn = true
+
+                res.redirect('/')
 
             }
-        })
+
+        } catch(error) {
+            console.log(error.message);
+        }
+
+    },
+
+    doLogout : ( req, res ) => {
+
+        req.session.destroy()
+        res.redirect('/login')
 
     }
 

@@ -1,8 +1,8 @@
 <div class="login-page">
   <div class="form">
-    <form class="login-form" method="POST" action="/login">
+    <form class="login-form" method="POST" action="/admin/login">
       <input type="email" name="email" placeholder="email"/>
-      {{#if errUser}}
+      {{#if errAdmin}}
         <label for="" style="color: red;">Invalid user</label>
       {{/if}}
       <input type="password" name="password" placeholder="password"/>
@@ -10,11 +10,10 @@
         <label style="color: red;" for="">Incorrect password</label>
       {{/if}}
       <button>login</button>
-      <p class="message">Not registered? <a href="/signup">Create an account</a></p>
     </form>
   </div>
 </div>
 
 <div class="admin">
-<a href="/admin/login">Admin login</a>
+<a href="/login">Switch to user</a>
 </div>

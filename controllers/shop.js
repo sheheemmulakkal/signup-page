@@ -4,7 +4,15 @@ module.exports = {
 
     getHomePage : ( req, res ) => {
 
-        res.render( 'shop/home' )
+        if(req.session.user) {
+
+            res.render( 'shop/home', {user : req.session.loggedIn} )
+
+        } else {
+
+            res.redirect( '/login' )
+
+        }
     }
 
 }
