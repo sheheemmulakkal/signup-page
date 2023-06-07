@@ -1,9 +1,10 @@
 
 
+<div class="maindiv">
 <div class="table-div">
 
-<div class=" table-responsive py-5"> 
-<table class="table table-bordered table-hover">
+<div class=" table-responsive  py-5"> 
+<table id="user-table" class="table table-bordered table-hover">
   <thead class="thead-dark">
     <tr>
       <th scope="col">No.</th>
@@ -21,7 +22,7 @@
       <td>{{this.email}}</td>
       <td>
         <a href="/admin/edit-user?id={{this._id}}" class="btn btn-primary">Edit</a>
-        <a href="/admin/delete-user/{{this._id}}" class="btn btn-danger" onclick="return confirm('Do you want to remove {{this.Name}} ?')">Delete</a>
+        <a href="/admin/delete-user?id={{this._id}}" class="btn btn-danger" onclick="return confirm('Do you want to remove {{this.Name}} ?')">Delete</a>
       </td>
     </tr>
     {{/each}}
@@ -29,10 +30,26 @@
 </table>
 </div>
 </div>
+</div>
 
 <style>
+    .maindiv{
+{{!-- 
+        display: flex;
+        justify-content: center; --}}
+    }
+    .table-responsive{
+ 
+        justify-content: center;
+    }
     .table-div {
         text-align: center;
     }
     
 </style>
+
+<script>
+   $(document).ready(function() {
+        $('#user-table').DataTable();
+    });
+</script>

@@ -66,7 +66,7 @@ module.exports = {
     getEditUser : async ( req, res ) => {
 
         const user = await User.find({_id : req.query.id}).lean()
-        console.log(user);
+        
         res.render('admin/edit-user',{user : user })
     },
 
@@ -90,6 +90,12 @@ module.exports = {
         }
     },
 
-    
+    deleteUser : async( req, res ) => {
+        
+        const user = await User.deleteOne({_id : req.query.id})
+
+        res.redirect('/admin')
+
+    }
 
 }

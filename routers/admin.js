@@ -17,6 +17,9 @@ router.get( '/edit-user', adminController.getEditUser)
 
 router.post( '/edit-user', adminController.updateUser)
 
+router.get( '/delete-user', adminController.deleteUser)
+
+
 module.exports = router
 
 
