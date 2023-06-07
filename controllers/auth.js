@@ -1,13 +1,13 @@
-const userModel = require('../models/user')
+const User = require('../models/user')
+const bcrypt = require('bcryptjs')
 
 module.exports = {
 
     // GET login page
     getLogin : ( req, res ) => {
 
-        
         res.render('auth/login', { pageTitle : 'login'})
-
+        
     },
 
     // POST login page
@@ -21,7 +21,6 @@ module.exports = {
     getSignup : ( req, res ) => {
 
 
-
         res.render('auth/signup', {pageTitle : 'signup'})
 
     },
@@ -29,7 +28,35 @@ module.exports = {
     //POST signup page 
     doSignup : ( req, res ) => {
 
-        res. redirect( '/' )
+
+        User.findOne({email : req.body.email})
+        .then( userResult => {
+
+            if(userResult) {
+                return res.render( 'auth/signup', { userExist : true, pageTitle: 'signup'})
+            } else {
+
+                bcrypt.hash(req.body.password, 12)
+                .then( password => {
+
+                    const user = new User({
+                        name : req.body.name,
+                        password : password,
+                        email : req.body.email
+                    })
+                    
+                    return user.save()
+
+                })
+                .then( result => {
+
+                    console.log(result);
+                    res.redirect( '/' )
+                    
+                })
+
+            }
+        })
 
     }
 

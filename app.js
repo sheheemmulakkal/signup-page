@@ -55,7 +55,7 @@ app.use( '/admin', adminRouter )
 
 // Database connection (mongoose) and port listen
 mongoose.connect( 
-    'mongodb://127.0.0.1:27017/'
+    'mongodb://127.0.0.1:27017/shop-database'
 )
 .then( result => {
     app.listen(3000)

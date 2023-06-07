@@ -4,7 +4,7 @@ module.exports = {
 
     getHomePage : ( req, res ) => {
 
-        res.render( '')
+        res.render( 'shop/home' )
     }
 
 }

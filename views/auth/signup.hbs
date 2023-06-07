@@ -4,6 +4,9 @@
       <input type="text" name="name" placeholder="name"/>
       <input type="password" name="password" placeholder="password"/>
       <input type="email" name="email" placeholder="email address"/>
+        {{#if userExist}}
+      <label style="color: red;" for="">User already exist</label> <br>
+        {{/if}}
       <button>create</button>
       <p class="message">Already registered? <a href="/login">Sign In</a></p>
     </form>
