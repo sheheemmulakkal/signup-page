@@ -45,10 +45,10 @@ module.exports = {
                     req.session.admin = true
                     res.redirect( '/admin')
                 } else {
-                    res.render('admin/admin-login', {errPswd : true})
+                    res.render('admin/admin-login', {errPswd : true, adminLogin: true})
                 }
             } else {
-                res.render('admin/admin-login', {errUser : true})
+                res.render('admin/admin-login', {errUser : true, adminLogin: true})
             }
         } catch ( error) {
             console.log(error.message);
@@ -66,7 +66,7 @@ module.exports = {
     getEditUser : async ( req, res ) => {
 
         const user = await User.find({_id : req.query.id}).lean()
-        
+
         res.render('admin/edit-user',{user : user })
     },
 

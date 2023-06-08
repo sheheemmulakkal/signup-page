@@ -23,7 +23,8 @@ module.exports = {
             const user = await User.findOne( {email : req.body.email} )
 
             if ( user ) {
-                const password =  bcrypt.compare( req.body.password, user.password )
+                const password =  await bcrypt.compare( req.body.password, user.password )
+                console.log(password);
 
                 if( password ) {
 

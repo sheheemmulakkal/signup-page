@@ -1,18 +1,46 @@
+
+
 <div class="login-page">
   <div class="form">
     <form class="register-form" method="POST" action="/signup">
-      <input type="text" name="name" placeholder="name"/>
-      <input type="password" name="password" placeholder="password"/>
-      <input type="email" name="email" placeholder="email address"/>
-        {{#if userExist}}
-      <label style="color: red;" for="">User already exist</label> <br>
-        {{/if}}
-      <button>create</button>
+      <input type="text" name="name" placeholder="name" required/>
+      <input type="password" id="password" name="password" placeholder="password" pattern=".{6,}" title="Password must be at least 6 characters or numbers" required/>
+      <input type="password" id="confirmPassword" placeholder="confirm password" required/>
+      <input type="email" name="email" placeholder="email address" required/>
+      {{#if userExist}}
+        <label style="color: red;" for="">User already exists</label><br>
+      {{/if}}
+      <button type="submit">create</button>
       <p class="message">Already registered? <a href="/login">Sign In</a></p>
     </form>
   </div>
 </div>
 
+
 <div class="admin">
 <a href="/admin/login">Admin login</a>
 </div>
+
+
+
+
+<script>
+  document.querySelector('.register-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting
+  
+  var password = document.getElementById('password').value;
+  var confirmPassword = document.getElementById('confirmPassword').value;
+  
+  if (password !== confirmPassword) {
+    // Passwords don't match, display an error message
+    var errorMessage = document.createElement('label');
+    errorMessage.style.color = 'red';
+    errorMessage.textContent = 'Passwords do not match';
+    this.insertBefore(errorMessage, this.querySelector('button'));
+  } else {
+    // Passwords match, proceed with form submission
+    this.submit();
+  }
+});
+
+</script>
