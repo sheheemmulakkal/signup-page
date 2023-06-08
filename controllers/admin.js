@@ -12,7 +12,7 @@ module.exports = {
 
                 const user = await User.find().lean()
 
-                res.render( 'admin/user-list', {admin: req.session.admin, users : user})
+                res.render( 'admin/user-list', {admin: req.session.admin, users : user, adminPanel: true})
             } else {
                 res.redirect('/admin/login')
             }
@@ -28,7 +28,7 @@ module.exports = {
         if(req.session.admin) {
             res.redirect( '/admin' )
         } else {
-            res.render('admin/admin-login' , {adminLogin: true})
+            res.render('admin/admin-login' , {adminPanel: true})
         }
 
     },
@@ -45,10 +45,10 @@ module.exports = {
                     req.session.admin = true
                     res.redirect( '/admin')
                 } else {
-                    res.render('admin/admin-login', {errPswd : true, adminLogin: true})
+                    res.render('admin/admin-login', {errPswd : true, adminLogin: true, adminPanel: true})
                 }
             } else {
-                res.render('admin/admin-login', {errUser : true, adminLogin: true})
+                res.render('admin/admin-login', {errUser : true, adminLogin: true, adminPanel: true})
             }
         } catch ( error) {
             console.log(error.message);
@@ -67,7 +67,7 @@ module.exports = {
 
         const user = await User.find({_id : req.query.id}).lean()
 
-        res.render('admin/edit-user',{user : user })
+        res.render('admin/edit-user',{user : user, adminPanel: true })
     },
 
     updateUser : async( req, res ) => {

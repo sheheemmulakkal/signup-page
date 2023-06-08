@@ -1,5 +1,7 @@
-<div class="login-page">
-  <div class="form">
+<div class="login-page" >
+  <div class="form" style="background: rgb(236, 236, 236);">
+    <h3 style="color: blue; font-weight:700; font-size: 20px;">Edit user</h3>
+    <br>
     {{#each user}}
     <form class="register-form" method="POST" action="/admin/edit-user">
       <input type="hidden" name="id" value="{{this._id}}" />

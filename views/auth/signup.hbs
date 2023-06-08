@@ -3,7 +3,7 @@
 <div class="login-page">
   <div class="form">
     <form class="register-form" method="POST" action="/signup">
-      <input type="text" name="name" placeholder="name" required/>
+      <input type="text" name="name" id="name" placeholder="name" required/>
       <input type="password" id="password" name="password" placeholder="password" pattern=".{6,}" title="Password must be at least 6 characters or numbers" required/>
       <input type="password" id="confirmPassword" placeholder="confirm password" required/>
       <input type="email" name="email" placeholder="email address" required/>
@@ -24,23 +24,82 @@
 
 
 
-<script>
+{{!-- <script>
   document.querySelector('.register-form').addEventListener('submit', function(event) {
   event.preventDefault(); // Prevent the form from submitting
   
-  var password = document.getElementById('password').value;
+  var name = document.getElementById('name').value.trim()
+  var password = document.getElementById('password').value.trim;
   var confirmPassword = document.getElementById('confirmPassword').value;
-  
-  if (password !== confirmPassword) {
+
+  if(name === ''){
+
+    // String empty, display an error message
+    var errorMessage = document.createElement('label');
+    errorMessage.style.color = 'red';
+    errorMessage.textContent = "Name shouldn't empty";
+    this.insertBefore(errorMessage, this.querySelector('button'));
+
+  } else if (password !== confirmPassword) {
+
     // Passwords don't match, display an error message
     var errorMessage = document.createElement('label');
     errorMessage.style.color = 'red';
     errorMessage.textContent = 'Passwords do not match';
     this.insertBefore(errorMessage, this.querySelector('button'));
+
   } else {
+
     // Passwords match, proceed with form submission
     this.submit();
   }
 });
+
+</script> --}}
+
+
+<script>
+
+  document.querySelector('.register-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting
+  
+  var name = document.getElementsByName('name')[0].value.trim();
+  var password = document.getElementById('password').value;
+  var confirmPassword = document.getElementById('confirmPassword').value;
+  
+  // Remove any existing error messages
+  var errorMessages = this.querySelectorAll('.error-message');
+  errorMessages.forEach(function(errorMessage) {
+    errorMessage.remove();
+  });
+  
+  var hasError = false; // Track if there are any errors
+  
+  if (name === '') {
+    // Name field is empty, display an error message
+    var nameErrorMessage = document.createElement('label');
+    nameErrorMessage.className = 'error-message';
+    nameErrorMessage.style.color = 'red';
+    nameErrorMessage.textContent = 'Please enter a valid name';
+    this.insertBefore(nameErrorMessage, this.querySelector('button'));
+    hasError = true;
+  }
+  
+  if (password !== confirmPassword) {
+    // Passwords don't match, display an error message
+    var passwordErrorMessage = document.createElement('label');
+    passwordErrorMessage.className = 'error-message';
+    passwordErrorMessage.style.color = 'red';
+    passwordErrorMessage.textContent = 'Passwords do not match';
+    this.insertBefore(passwordErrorMessage, this.querySelector('button'));
+    hasError = true;
+  }
+  
+  if (!hasError) {
+    // No errors, proceed with form submission
+    this.submit();
+  }
+});
+
 
 </script>
