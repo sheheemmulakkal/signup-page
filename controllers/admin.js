@@ -64,6 +64,7 @@ module.exports = {
     },
 
     getEditUser : async ( req, res ) => {
+        console.log(req.query);
 
         const user = await User.find({_id : req.query.id}).lean()
 
